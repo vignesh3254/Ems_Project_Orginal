@@ -1,0 +1,315 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #645e5e;
+}
+a{
+    text-decoration: none;
+}
+
+.navbar {
+    display: flex;
+    background-color: rgb(0, 89, 255);
+    padding: 15px;
+    border-radius: 10px;
+    align-items: center;
+    height: 40px;
+}
+
+.navbar ul {
+    display: flex;
+    list-style: none;
+    margin-left: 20px;
+}
+
+.navbar ul li {
+    margin-top: 5px;
+    font-size: 26px;
+    padding: 10px;
+    color: aliceblue;
+    cursor: pointer;
+}
+
+.navbar .active {
+    color: #645e5e;
+}
+
+.table {
+    margin: 50px;
+}
+
+#customers{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#customers td{
+    color: rgb(233, 229, 18);
+    font-size: 1.5rem;
+}
+#customers td,
+#customers th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #04AA6D;
+    color: white;
+    font-size: 19px;
+}
+.btn button{
+    width: 100%;
+    height: 100%;
+    margin-left: 5px;
+    background: #000;
+    color: #ddd;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 17px;
+    border-radius: 6px;
+    border:2px solid black ;
+}
+.Update_btn:hover{
+    background-color:#008000;
+}
+
+.View_btn:hover{
+    background-color: #f3880de5;
+}
+.Remove_btn:hover{
+    background-color:#ff0000;
+}
+.btn{
+    display: flex;
+}
+#add_form,#update_forms{
+    display: none;
+    position: fixed;
+    height: 60vh;
+    width: 25vw;
+    background: aliceblue;
+    padding: 20px;
+    z-index: 1;
+    top: 70px;
+    left: 30%;
+    border-radius: 0px 0px 15px 15px;
+}
+#view_forms{
+    display: none;
+    position: fixed;
+    height: 48vh;
+    width: 25vw;
+    background: aliceblue;
+    padding: 20px;
+    top: 70px;
+    left: 30%;
+    border-radius: 0px 0px 15px 15px;
+    
+}
+#add_form h2,#update_forms h2,#view_forms h2{
+    width: 97%;
+    height: 100%;
+    color: rgb(255, 255, 255);
+    padding: 7px;
+    text-align: center;
+    border-radius: 5px;
+}
+#add_form h2{
+background-color: #008000;
+}
+#update_forms h2{
+background-color: #008000;
+}
+#view_forms h2{
+    background-color: #f3880de5;
+
+}
+.add,.update{
+    height: 270px;
+    padding-top: 10px;
+    width: 95%;
+    font-size: 1.3rem;
+    padding-left: 20px;
+}
+.view{
+    font-weight: bold;
+    padding-top: 10px;
+    width: 95%;
+    font-size: 1.3rem;
+    padding-left: 20px;
+    line-height: 60px;
+    
+}
+.add input,.update input{
+    width: 80%;
+    height: 15px;
+    padding: 5px 10px 5px 5px;
+    margin-top: 5px;
+    border-radius:5px;
+}
+#view_id,#view_name,#view_mail,#view_city{
+    color:grey;
+    padding-left: 20px;
+}
+.add div,.update div{
+    padding-top: 10px;
+}
+.ca_btn{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+
+}
+.ca_btn button{
+    height:30px ;
+    width: 150px;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 9px;
+    color: #ffffff;
+    cursor: pointer;
+    margin-right: 20px;
+}
+.view .close_btn{
+    height:25px ;
+    width: 100px;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 9px;
+    color: #ffffff;
+    cursor: pointer;
+    position: relative;
+    left: 100px;
+    bottom: 20px;
+}
+.close_btn{
+    background-color: red;
+}
+.add_btn{
+    background-color: green;
+}
+/* .blurred{
+    
+    z-index: -1;
+} */
+
+/* Responsive Styles */
+
+@media (max-width: 1024px) {
+    .navbar {
+        flex-direction: column;
+        height: auto;
+        padding: 10px;
+    }
+
+    .navbar ul {
+        flex-direction: column;
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .navbar ul li {
+        font-size: 20px;
+        padding: 8px;
+        text-align: center;
+    }
+
+    #customers th, #customers td {
+        font-size: 1.2rem;
+        padding: 6px;
+    }
+
+    .btn button {
+        font-size: 15px;
+        padding: 8px;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar ul li {
+        font-size: 18px;
+        padding: 5px;
+    }
+
+    .table {
+        margin: 20px;
+    }
+
+    #customers th, #customers td {
+        font-size: 1rem;
+        padding: 4px;
+    }
+
+    .btn button {
+        font-size: 14px;
+        padding: 6px;
+    }
+
+    #add_form, #update_forms, #view_forms {
+        width: 80vw;
+        left: 10%;
+        top: 50px;
+        height: auto;
+        padding: 15px;
+    }
+
+    .add input, .update input {
+        width: 90%;
+    }
+
+    .ca_btn button {
+        width: 120px;
+        height: 25px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar ul li {
+        font-size: 16px;
+        padding: 4px;
+    }
+
+    #customers th, #customers td {
+        font-size: 0.9rem;
+        padding: 3px;
+    }
+
+    .btn button {
+        font-size: 12px;
+        padding: 5px;
+    }
+
+    #add_form, #update_forms, #view_forms {
+        width: 90vw;
+        left: 5%;
+        top: 30px;
+        height: auto;
+        padding: 10px;
+    }
+
+    .add input, .update input {
+        width: 95%;
+    }
+
+    .ca_btn button {
+        width: 100px;
+        height: 20px;
+        font-size: 0.8rem;
+    }
+
+    .close_btn {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}

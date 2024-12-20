@@ -1,0 +1,244 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Employee System</title>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+    <link href="{% static 'img/image.jpg' %}" rel="icon" />
+    <style></style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="navbar" id="nav_bar">
+        <h1>Employee System</h1>
+        <ul>
+          <li><a class="active" href="#">Employee</a></li>
+          <li onclick="clickAdd()" id="Added">Add Employee</li>
+        </ul>
+      </div>
+
+      <div class="table">
+        <table id="customers">
+          <thead>
+            <th>Employee_id</th>
+            <th>Employee_name</th>
+            <th>Employee_Email</th>
+            <th>Employee_city</th>
+            <th>View</th>
+          </thead>
+          {%for emp in emp%}
+          <tbody>
+            <td>{{emp.emp_id}}</td>
+            <td>{{emp.emp_name}}</td>
+            <td>{{emp.emp_mail}}</td>
+            <td>{{emp.emp_city}}</td>
+            <td class="btn">
+              <button
+                onclick="clickView()"
+                id="viewed"
+                type="button"
+                class="View_btn"
+                data-empid="{{emp.emp_id}}"
+                data-empname="{{emp.emp_name}}"
+                data-empmail="{{emp.emp_mail}}"
+                data-empcity="{{emp.emp_city}}"
+              >
+                View
+              </button>
+
+              <button
+                onclick="clickUpdate()"
+                id="updated"
+                type="button"
+                class="Update_btn"
+                data-empid="{{emp.emp_id}}"
+                data-empname="{{emp.emp_name}}"
+                data-empmail="{{emp.emp_mail}}"
+                data-empcity="{{emp.emp_city}}"
+                data-id="{{emp.id}}"
+              >
+                Update
+              </button>
+
+              <form action="{% url 'remove_emp' emp.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="Remove_btn">Remove</button>
+              </form>
+            </td>
+          </tbody>
+          {%endfor%}
+        </table>
+      </div>
+
+      <div id="add_form">
+        <form action="{% url 'add_emp' %}" method="POST">
+          {% csrf_token %}
+          <h2>ADD NEW EMPLOYEE</h2>
+          <div class="add">
+            <div>
+              <label>Employee Number</label><br />
+              <input type="number" name="emp_id" required />
+            </div>
+            <div>
+              <label>Employee Name</label><br />
+              <input type="text" name="emp_name" required />
+            </div>
+            <div>
+              <label>Employee Mail</label><br />
+              <input type="email" name="emp_mail" required />
+            </div>
+            <div>
+              <label>Employee City</label><br />
+              <input type="text" name="emp_city" required />
+            </div>
+            <div class="ca_btn">
+              <button type="button" class="close_btn" onclick="closeModel()">
+                Close
+              </button>
+              <button type="submit" class="add_btn">Add Employee</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div id="update_forms">
+        <form action="{% url 'update_emp' 0 %}" method="POST" id="update_form">
+          {% csrf_token %}
+          <input type="hidden" name="id" id="update_id" />
+          <h2>UPDATE EMPLOYEE</h2>
+          <div class="update">
+            <div>
+              <label>Employee Number</label>
+              <input type="number" name="emp_id" id="update_empid" required />
+            </div>
+            <div>
+              <label>Employee Name</label>
+              <input type="text" name="emp_name" id="update_name" required />
+            </div>
+            <div>
+              <label>Employee Mail</label>
+              <input type="email" name="emp_mail" id="update_mail" required />
+            </div>
+            <div>
+              <label>Employee City</label>
+              <input type="text" name="emp_city" id="update_city" required />
+            </div>
+            <div class="ca_btn">
+              <button type="button" class="close_btn" onclick="closeModel()">
+                Close
+              </button>
+              <button type="submit" class="add_btn">Update Employee</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div id="view_forms">
+        <div>
+          <h2>Employee Details</h2>
+        </div>
+        <div class="view">
+          <p>Employee ID:<strong id="view_id"></strong></p>
+          <p>Employee Name:<strong id="view_name"></strong></p>
+          <p>Employee Mail:<strong id="view_mail"></strong></p>
+          <p>Employee City:<strong id="view_city"></strong></p>
+          <button class="close_btn" onclick="closeModel()">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.querySelectorAll(".Update_btn").forEach((button) => {
+        button.addEventListener("click", function () {
+          const id = this.getAttribute("data-id");
+          const emp_id = this.getAttribute("data-empid");
+          const emp_name = this.getAttribute("data-empname");
+          const emp_mail = this.getAttribute("data-empmail");
+          const emp_city = this.getAttribute("data-empcity");
+
+          document.getElementById("update_form").action =
+            `{% url 'update_emp' 0 %}`.replace("0", id);
+
+          document.getElementById("update_id").value = id;
+
+          document.getElementById("update_empid").value = emp_id;
+          document.getElementById("update_name").value = emp_name;
+          document.getElementById("update_mail").value = emp_mail;
+          document.getElementById("update_city").value = emp_city;
+        });
+      });
+
+      document.querySelectorAll(".View_btn").forEach((button) => {
+        button.addEventListener("click", function () {
+          const emp_id = this.getAttribute("data-empid");
+          const emp_name = this.getAttribute("data-empname");
+          const emp_mail = this.getAttribute("data-empmail");
+          const emp_city = this.getAttribute("data-empcity");
+
+          document.getElementById("view_id").textContent = emp_id;
+          document.getElementById("view_name").textContent = emp_name;
+          document.getElementById("view_mail").textContent = emp_mail;
+          document.getElementById("view_city").textContent = emp_city;
+        });
+      });
+
+      const add = document.getElementById("add_form");
+      const update = document.getElementById("update_forms");
+      const view = document.getElementById("view_forms");
+
+      const navbar = document.getElementById("nav_bar");
+      const added = document.getElementById("Added");
+      const updated = document.getElementById("updated");
+      const viewed = document.getElementById("viewed");
+
+      function clickAdd() {
+        add.style.display = "block";
+        update.style.display = "none";
+        view.style.display = "none";
+      }
+      function clickUpdate() {
+        update.style.display = "block";
+        add.style.display = "none";
+        view.style.display = "none";
+      }
+      function clickView() {
+        view.style.display = "block";
+        update.style.display = "none";
+        add.style.display = "none";
+      }
+
+      function closeModel() {
+        add.style.display = "none";
+        update.style.display = "none";
+        view.style.display = "none";
+      }
+
+      document.addEventListener("click", (e) => {
+        if (
+          !add.contains(e.target) &&
+          e.target !== navbar &&
+          e.target !== added
+        ) {
+          add.style.display = "none";
+        }
+        if (
+          !update.contains(e.target) &&
+          e.target !== navbar &&
+          e.target !== updated
+        ) {
+          update.style.display = "none";
+        }
+        if (
+          !view.contains(e.target) &&
+          e.target !== navbar &&
+          e.target !== viewed
+        ) {
+          view.style.display = "none";
+        }
+      });
+    </script>
+  </body>
+</html>
